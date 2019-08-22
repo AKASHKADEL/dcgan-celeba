@@ -22,6 +22,23 @@ Optional:
 * Matplolib and Imageio to produce basic visualizations.
 * Cuda >= 10.0
 
+## Dataset:
+The dataset was downloaded from this [link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Once you have downloaded the images, create a ```train```folder. This folder should contain the celebA folder which in turn contains the celebrity images. We will make use [torchvision's imagefolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) library to directly read the images from that folder. This makes reading, normalizing and cropping images very easy:
+
+```     transform = transforms.Compose([
+        transforms.Resize(64),
+        transforms.CenterCrop(64),
+        transforms.ToTensor(),
+        transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+
+    dataset = datasets.ImageFolder(root=root, transform=transform)
+
+    # Data Loader
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True) ```
+    
+
+
+## Steps:
 Once everything is installed, you can go ahead and run the below command to train a model on 100 Epochs and store the sample outputs from generator in the ```results``` folder.
 
 ```python main.py --num-epochs 100 --output-path ./results/ ```
