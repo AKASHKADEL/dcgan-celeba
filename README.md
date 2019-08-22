@@ -1,12 +1,12 @@
 # DCGAN 
 
-A small PyTorch tutorial for DCGAN on MNIST dataset. The implementation primarily follows the paper: [Unsupervised Representation Learning with Deep Convolutional Generative Adversarial Networks](https://arxiv.org/pdf/1511.06434.pdf).
+This is my second implementation of dcgan. My first implementation was on mnist dataset which could be found [here](https://github.com/AKASHKADEL/dcgan-mnist). This implementation is on the celebrity faces dataset. The dataset can be found [here](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html).
 
 # Introduction
 
-Deep Convolutional GAN is one of the most coolest and popular deep learning technique. It is a great improvement upon the [original GAN network](https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf) that was first introduced by Ian Goodfellow at NIPS 2014. (DCGANs are much more stable than Vanilla GANs) DCGAN uses the same framework of generator and discriminator. This is analogous to solving a two player minimax game: Ideally the goal of the discriminator is to be very sharp in distinguishing between the real and fake data, whereas, generator aims at faking data in such a way that it becomes nearly impossible for the discriminator to classify it as a fake. The below gif shows how quickly dcgan learns the distribution of mnist and generates real looking digits.
+Deep Convolutional GAN is one of the most coolest and popular deep learning technique. It is a great improvement upon the [original GAN network](https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf) that was first introduced by Ian Goodfellow at NIPS 2014. (DCGANs are much more stable than Vanilla GANs) DCGAN uses the same framework of generator and discriminator. This is analogous to solving a two player minimax game: Ideally the goal of the discriminator is to be very sharp in distinguishing between the real and fake data, whereas, generator aims at faking data in such a way that it becomes nearly impossible for the discriminator to classify it as a fake. The below gif shows how quickly dcgan learns the distribution of celebrity images and generates real looking people.
 
-![](https://github.com/AKASHKADEL/dcgan-celeba/tree/master/results/fixed_noise/animated.gif)
+![](https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/fixed_noise/animated.gif)
 
 # Quick Start
 
