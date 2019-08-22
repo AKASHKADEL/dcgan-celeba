@@ -23,9 +23,12 @@ Optional:
 * Cuda >= 10.0
 
 ## Dataset:
-The dataset was downloaded from this [link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Once you have downloaded the images, create a ```train```folder. This folder should contain the celebA folder which in turn contains the celebrity images. We will make use [torchvision's imagefolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) library to directly read the images from that folder. This makes reading, normalizing and cropping images very easy:
+The dataset was downloaded from this [link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Once you have downloaded the images, create a ```train```folder. This folder should contain the celebA folder which in turn contains the celebrity images. We will make use [torchvision's imagefolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) library to directly read the images from that folder. This makes reading, normalizing and cropping images very easy. The following method reads the images from ``` train/celeb-a/ ``` folder and creates a dataloader with a given batch size:
 
-```     transform = transforms.Compose([
+```     
+def get_data_loader(root, batch_size):
+    
+    transform = transforms.Compose([
         transforms.Resize(64),
         transforms.CenterCrop(64),
         transforms.ToTensor(),
@@ -34,9 +37,9 @@ The dataset was downloaded from this [link](http://mmlab.ie.cuhk.edu.hk/projects
     dataset = datasets.ImageFolder(root=root, transform=transform)
 
     # Data Loader
-    dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True) ```
-    
-
+    dataloader = torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    return dataloader
+```
 
 ## Steps:
 Once everything is installed, you can go ahead and run the below command to train a model on 100 Epochs and store the sample outputs from generator in the ```results``` folder.
