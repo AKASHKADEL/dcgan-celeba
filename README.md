@@ -7,8 +7,8 @@ This is my second implementation of dcgan. My first implementation was on mnist 
 Deep Convolutional GAN is one of the most coolest and popular deep learning technique. It is a great improvement upon the [original GAN network](https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf) that was first introduced by Ian Goodfellow at NIPS 2014. (DCGANs are much more stable than Vanilla GANs) DCGAN uses the same framework of generator and discriminator. This is analogous to solving a two player minimax game: Ideally the goal of the discriminator is to be very sharp in distinguishing between the real and fake data, whereas, generator aims at faking data in such a way that it becomes nearly impossible for the discriminator to classify it as a fake. The below gif shows how quickly dcgan learns the distribution of celebrity images and generates real looking people. The gif is created for both, a fixed noise and variable noise:-
 
 <p float="left">
-  <img src="https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/fixed_noise/animated.gif" width="100" />
-  <img src="https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/variable_noise/animated.gif" width="100" /> 
+  <img src="https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/variable_noise/animated.gif" width="500" height="500" />
+  <img src="https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/fixed_noise/animated.gif" width="500" height="500" />
 </p>
 
 # Quick Start
