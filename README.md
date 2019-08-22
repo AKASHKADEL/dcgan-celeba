@@ -6,7 +6,8 @@ This is my second implementation of dcgan. My first implementation was on mnist 
 
 Deep Convolutional GAN is one of the most coolest and popular deep learning technique. It is a great improvement upon the [original GAN network](https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf) that was first introduced by Ian Goodfellow at NIPS 2014. (DCGANs are much more stable than Vanilla GANs) DCGAN uses the same framework of generator and discriminator. This is analogous to solving a two player minimax game: Ideally the goal of the discriminator is to be very sharp in distinguishing between the real and fake data, whereas, generator aims at faking data in such a way that it becomes nearly impossible for the discriminator to classify it as a fake. The below gif shows how quickly dcgan learns the distribution of celebrity images and generates real looking people.
 
-![](https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/fixed_noise/animated.gif)
+![](https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/fixed_noise/animated.gif "fixed noise") ![](https://github.com/AKASHKADEL/dcgan-celeba/blob/master/results/variable_noise/animated.gif "variable noise")
+
 
 # Quick Start
 
@@ -48,7 +49,7 @@ Once everything is installed, you can go ahead and run the below command to trai
 
 You can also generate sample output using a fixed noise vector (It's easier to interpret the output on a fixed noise. Ex: the above gif), use this
 
-```python main.py --num-epochs 100 --output-path ./results/ --use-fixed True ```
+```python main.py --num-epochs 100 --output-path ./results/ --use-fixed ```
 
 You can change the model setting by playing with the learning rate, num_epochs, batch size, etc
 
@@ -58,6 +59,10 @@ The above code will store 100 images in the folder ```./results/fixed_noise```, 
 
 # References:
 
+[1] https://papers.nips.cc/paper/5423-generative-adversarial-nets.pdf <br>
+[2] https://arxiv.org/pdf/1511.06434.pdf <br>
+[3] https://github.com/soumith/ganhacks <br>
+[4] https://medium.com/activating-robotic-minds/up-sampling-with-transposed-convolution-9ae4f2df52d0 <br>
 
 
 
