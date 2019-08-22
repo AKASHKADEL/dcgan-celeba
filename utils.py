@@ -49,13 +49,14 @@ def generate_images(epoch, path, fixed_noise, num_test_samples, netG, device, us
     fig.suptitle(title)
     fig.savefig(path+label+'.png')
 
-def save_gif(path, fps, fixed_noise=False):
+def save_gif(path, fps, max_num=100, fixed_noise=False):
     if fixed_noise==True:
         path += 'fixed_noise/'
     else:
         path += 'variable_noise/'
     images = glob(path + '*.png')
     images = natsort.natsorted(images)
+    images = images[:max_num]
     gif = []
 
     for image in images:
