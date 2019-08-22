@@ -26,7 +26,7 @@ Optional:
 * Cuda >= 10.0
 
 ## Dataset:
-The dataset was downloaded from this [link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Once you have downloaded the images, create a ```train```folder. This folder should contain the celebA folder which in turn contains the celebrity images. We will make use [torchvision's imagefolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) library to directly read the images from that folder. This makes reading, normalizing and cropping images very easy. The following method reads the images from ``` train/celeb-a/ ``` folder and creates a dataloader with a given batch size:
+The dataset was downloaded from this [link](http://mmlab.ie.cuhk.edu.hk/projects/CelebA.html). Once you have downloaded the images, create a ```train```folder. This folder should contain the celebA folder which in turn contains the celebrity images. (I have added 10 sample images in train folder just for reference. Obviously, I cannot add the entire dataset due to memory limit.) We will make use [torchvision's imagefolder](https://pytorch.org/docs/stable/torchvision/datasets.html#imagefolder) library to directly read the images from that folder. This makes reading, normalizing and cropping images very easy. The following method reads the images from ``` train/celeb-a/ ``` folder and creates a dataloader with a given batch size:
 
 ```     
 def get_data_loader(root, batch_size):
