@@ -27,81 +27,81 @@ if __name__ == '__main__':
     parser.add_argument('--num-test-samples', type=int, default=16, help='Number of samples to visualize')
     parser.add_argument('--output-path', type=str, default='./results/', help='Path to save the images')
     parser.add_argument('--fps', type=int, default=5, help='frames-per-second value for the gif')
-    parser.add_argument('--use-fixed', type=bool, default=True, help='Boolean to use fixed noise or not')
+    parser.add_argument('--use-fixed', action='store_true', help='Boolean to use fixed noise or not')
 
     opt = parser.parse_args()
     print(opt)
 
-    # Gather CelebA Dataset    
-    root = 'train/'
-    dataloader = get_data_loader(root, opt.batch_size)
-    print("Dataset loaded from " + root)
+    # # Gather CelebA Dataset    
+    # root = 'train/'
+    # dataloader = get_data_loader(root, opt.batch_size)
+    # print("Dataset loaded from " + root)
 
-    # Device configuration
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print("Using", device)
+    # # Device configuration
+    # device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    # print("Using", device)
 
-    # Define Discriminator and Generator architectures
-    netG = Generator(opt.nc, opt.nz, opt.ngf).to(device)
-    netD = Discriminator(opt.nc, opt.ndf).to(device)
+    # # Define Discriminator and Generator architectures
+    # netG = Generator(opt.nc, opt.nz, opt.ngf).to(device)
+    # netD = Discriminator(opt.nc, opt.ndf).to(device)
 
-    # loss function
-    criterion = nn.BCELoss()
+    # # loss function
+    # criterion = nn.BCELoss()
 
-    # optimizers
-    optimizerD = optim.Adam(netD.parameters(), lr=opt.d_lr)
-    optimizerG = optim.Adam(netG.parameters(), lr=opt.g_lr)
+    # # optimizers
+    # optimizerD = optim.Adam(netD.parameters(), lr=opt.d_lr)
+    # optimizerG = optim.Adam(netG.parameters(), lr=opt.g_lr)
     
-    # initialize other variables
-    real_label = 1
-    fake_label = 0
-    num_batches = len(dataloader)
-    fixed_noise = torch.randn(opt.num_test_samples, 100, 1, 1, device=device)
+    # # initialize other variables
+    # real_label = 1
+    # fake_label = 0
+    # num_batches = len(dataloader)
+    # fixed_noise = torch.randn(opt.num_test_samples, 100, 1, 1, device=device)
 
-    for epoch in range(opt.num_epochs):
-        for i, (real_images, _) in enumerate(dataloader):
-            bs = real_images.shape[0]
-            ##############################
-            #   Training discriminator   #
-            ##############################
+    # for epoch in range(opt.num_epochs):
+    #     for i, (real_images, _) in enumerate(dataloader):
+    #         bs = real_images.shape[0]
+    #         ##############################
+    #         #   Training discriminator   #
+    #         ##############################
 
-            netD.zero_grad()
-            real_images = real_images.to(device)
-            label = torch.full((bs,), real_label, device=device)
+    #         netD.zero_grad()
+    #         real_images = real_images.to(device)
+    #         label = torch.full((bs,), real_label, device=device)
 
-            output = netD(real_images)
-            lossD_real = criterion(output, label)
-            lossD_real.backward()
-            D_x = output.mean().item()
+    #         output = netD(real_images)
+    #         lossD_real = criterion(output, label)
+    #         lossD_real.backward()
+    #         D_x = output.mean().item()
 
-            noise = torch.randn(bs, opt.nz, 1, 1, device=device)
-            fake_images = netG(noise)
-            label.fill_(fake_label)
-            output = netD(fake_images.detach())
-            lossD_fake = criterion(output, label)
-            lossD_fake.backward()
-            D_G_z1 = output.mean().item()
-            lossD = lossD_real + lossD_fake
-            optimizerD.step()
+    #         noise = torch.randn(bs, opt.nz, 1, 1, device=device)
+    #         fake_images = netG(noise)
+    #         label.fill_(fake_label)
+    #         output = netD(fake_images.detach())
+    #         lossD_fake = criterion(output, label)
+    #         lossD_fake.backward()
+    #         D_G_z1 = output.mean().item()
+    #         lossD = lossD_real + lossD_fake
+    #         optimizerD.step()
 
-            ##########################
-            #   Training generator   #
-            ##########################
+    #         ##########################
+    #         #   Training generator   #
+    #         ##########################
 
-            netG.zero_grad()
-            label.fill_(real_label)
-            output = netD(fake_images)
-            lossG = criterion(output, label)
-            lossG.backward()
-            D_G_z2 = output.mean().item()
-            optimizerG.step()
+    #         netG.zero_grad()
+    #         label.fill_(real_label)
+    #         output = netD(fake_images)
+    #         lossG = criterion(output, label)
+    #         lossG.backward()
+    #         D_G_z2 = output.mean().item()
+    #         optimizerG.step()
 
-            if (i+1)%100 == 0:
-                print('Epoch [{}/{}], step [{}/{}], d_loss: {:.4f}, g_loss: {:.4f}, D(x): {:.2f}, Discriminator - D(G(x)): {:.2f}, Generator - D(G(x)): {:.2f}'.format(epoch+1, opt.num_epochs, 
-                                                            i+1, num_batches, lossD.item(), lossG.item(), D_x, D_G_z1, D_G_z2))
-        netG.eval()
-        generate_images(epoch, opt.output_path, fixed_noise, opt.num_test_samples, netG, device, use_fixed=opt.use_fixed)
-        netG.train()
+    #         if (i+1)%100 == 0:
+    #             print('Epoch [{}/{}], step [{}/{}], d_loss: {:.4f}, g_loss: {:.4f}, D(x): {:.2f}, Discriminator - D(G(x)): {:.2f}, Generator - D(G(x)): {:.2f}'.format(epoch+1, opt.num_epochs, 
+    #                                                         i+1, num_batches, lossD.item(), lossG.item(), D_x, D_G_z1, D_G_z2))
+    #     netG.eval()
+    #     generate_images(epoch, opt.output_path, fixed_noise, opt.num_test_samples, netG, device, use_fixed=opt.use_fixed)
+    #     netG.train()
 
     # Save gif:
     save_gif(opt.output_path, opt.fps, fixed_noise=opt.use_fixed)
